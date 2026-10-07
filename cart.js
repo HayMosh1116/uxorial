@@ -454,176 +454,69 @@ const placeOrderBtn =
 
 if (placeOrderBtn) {
 
-  placeOrderBtn.addEventListener("click", () => {
-
-    const name =
-
-      document
-
-        .getElementById("customerName")
-
-        .value
-
-        .trim();
-
-    const phone =
-
-      document
-
-        .getElementById("customerPhone")
-
-        .value
-
-        .trim();
-
-    const email =
-
-      document
-
-        .getElementById("customerEmail")
-
-        .value
-
-        .trim();
-
-    const address =
-
-      document
-
-        .getElementById("customerAddress")
-
-        .value
-
-        .trim();
-
-    const state =
-
-      document.getElementById("customerState").value;
-
-    /* CHECK CUSTOMER DETAILS */
-
-    if (!name || !phone || !address) {
-
-      alert(
-
-        "Please fill in your name, phone number and delivery address."
-
-      );
-
-      return;
-
-    }
-
-    /* CHECK CART */
-
+  /* ==============================================
+     DATABASE CHECKOUT (REPLACES WHATSAPP CHECKOUT)
+     ============================================== */
+  placeOrderBtn.addEventListener("click", async () => {
     if (cart.length === 0) {
-
-      alert("Your cart is empty.");
-
+      alert("Your cart is empty!");
       return;
-
     }
 
-    /* CALCULATE TOTAL */
+    const customerName = document.getElementById("customerName")?.value.trim();
+    const customerPhone = document.getElementById("customerPhone")?.value.trim();
+    const customerEmail = document.getElementById("customerEmail")?.value.trim();
+    const customerAddress = document.getElementById("customerAddress")?.value.trim();
+    const customerState = document.getElementById("customerState")?.value || "Lagos";
 
-    let total = 0;
+    if (!customerName || !customerPhone || !customerAddress) {
+      alert("Please fill in your Name, Phone Number, and Delivery Address.");
+      return;
+    }
 
-    cart.forEach(item => {
+    placeOrderBtn.disabled = true;
+    placeOrderBtn.textContent = "Processing Order...";
 
-      total += item.price * item.quantity;
+    try {
+      const token = localStorage.getItem("luxoral_token");
+      const headers = { "Content-Type": "application/json" };
+      if (token) headers["Authorization"] = `Bearer ${token}`;
 
-    });
+      const res = await fetch("/api/orders", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          customerName,
+          customerPhone,
+          customerEmail,
+          deliveryAddress: customerAddress,
+          state: customerState,
+          paymentMethod: "Bank Transfer / Pay On Delivery",
+          items: cart,
+          totalAmount: total
+        })
+      });
 
-    /* CREATE ORDER MESSAGE */
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Order creation failed");
 
-    let message = `
+      // Clear local cart
+      cart = [];
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartBadge();
 
-LUXORAL ORDER
+      alert(`Order placed successfully! Your Order ID is: ${data.orderNumber}`);
 
--------------------------
-
-Customer Details
-
-Name: ${name}
-
-Phone: ${phone}
-
-Email: ${email || "Not provided"}
-
-State: ${state}
-
-Address: ${address}
-
-Order Details
-
--------------------------
-
-`;
-
-    cart.forEach((item, index) => {
-
-      message += `
-
-${index + 1}. ${item.name}
-
-Color: ${item.color}
-
-Size: ${item.size}
-
-Quantity: ${item.quantity}
-
-Price: ₦${item.price.toLocaleString()}
-
-Subtotal: ₦${(
-
-        item.price * item.quantity
-
-      ).toLocaleString()}
-
-`;
-
-    });
-
-    message += `
-
--------------------------
-
-TOTAL: ₦${total.toLocaleString()}
-
--------------------------
-
-Thank you for shopping with LUXORAL.
-
-`;
-
-    /*
-
-      LUXORAL WHATSAPP NUMBER
-
-    */
-
-    const whatsappNumber =
-
-      "2348158121554";
-
-    /* OPEN WHATSAPP */
-
-    const whatsappURL =
-
-      `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-
-        message
-
-      )}`;
-
-    window.open(
-
-      whatsappURL,
-
-      "_blank"
-
-    );
-
+      // If user is logged in, redirect to My Orders, else provide option
+      if (token) {
+        window.location.href = "account.html";
+      } else {
+        window.location.href = "shop.html?order=" + data.orderNumber;
+      }
+    } catch (err) {
+      alert("Failed to create order: " + err.message);
+      placeOrderBtn.disabled = false;
+      placeOrderBtn.textContent = "Place Order";
+    }
   });
-
 }

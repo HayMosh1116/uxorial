@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUXORAL | Customer Account & Orders</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .account-page { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+    .account-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; margin-bottom: 30px; }
+    .account-header h1 { font-family: 'Cinzel', serif; margin: 0; }
+    .btn-logout { background: transparent; border: 1px solid #ff5555; color: #ff5555; padding: 8px 16px; border-radius: 4px; cursor: pointer; }
+    .order-card {
+      background: var(--card-bg, #141414);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .order-top { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 14px; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
+    .order-number { font-size: 18px; font-weight: 700; color: #fff; }
+    .badge-status {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .status-Pending { background: #374151; color: #e5e7eb; }
+    .status-PaymentPending { background: #854d0e; color: #fef08a; }
+    .status-PaymentConfirmed { background: #166534; color: #bbf7d0; }
+    .status-Processing { background: #1e40af; color: #bfdbfe; }
+    .status-ReadyforDelivery { background: #6b21a8; color: #f3e8ff; }
+    .status-Shipped { background: #0e7490; color: #cffafe; }
+    .status-Delivered { background: #15803d; color: #dcfce7; }
+    .status-Cancelled { background: #991b1b; color: #fee2e2; }
+
+    .order-details-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px; font-size: 14px; color: #aaa; }
+    .order-details-grid strong { color: #fff; }
+    .item-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed rgba(255,255,255,0.05); font-size: 14px; }
+    .empty-state { text-align: center; padding: 60px 20px; color: #888; }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo"><a href="index.html" style="color:inherit;text-decoration:none;">LUXORAL</a></div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="account.html" class="active">My Orders</a></li>
+        <li id="adminNav" style="display:none;"><a href="admin.html" style="color:#f59e0b;font-weight:bold;">Admin Desk</a></li>
+      </ul>
+      <a href="cart.html" class="cart-nav"><i class='bx bx-shopping-bag'></i><span id="cartBadge">0</span></a>
+    </nav>
+  </header>
+
+  <div class="account-page">
+    <div class="account-header">
+      <div>
+        <h1 id="welcomeUser">My Account</h1>
+        <p id="userEmail" style="color:#888;margin:4px 0 0;"></p>
+      </div>
+      <div>
+        <button class="btn-logout" onclick="logout()">Sign Out</button>
+      </div>
+    </div>
+
+    <h2>My Orders</h2>
+    <div id="ordersContainer">
+      <div class="empty-state">Loading your orders...</div>
+    </div>
+  </div>
+
+  <script>
+    const token = localStorage.getItem('luxoral_token');
+    const userStr = localStorage.getItem('luxoral_user');
+
+    if (!token || !userStr) {
+      window.location.href = 'auth.html';
+    }
+
+    const user = JSON.parse(userStr);
+    document.getElementById('welcomeUser').textContent = `Welcome, ${user.full_name || 'Customer'}`;
+    document.getElementById('userEmail').textContent = `${user.email} (${user.role.toUpperCase()})`;
+
+    if (user.role === 'admin') {
+      document.getElementById('adminNav').style.display = 'block';
+    }
+
+    function logout() {
+      localStorage.removeItem('luxoral_token');
+      localStorage.removeItem('luxoral_user');
+      window.location.href = 'auth.html';
+    }
+
+    async function loadOrders() {
+      try {
+        const res = await fetch('/api/orders', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (res.status === 401) {
+          logout();
+          return;
+        }
+        const data = await res.json();
+        const container = document.getElementById('ordersContainer');
+
+        if (!data.orders || data.orders.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <i class='bx bx-package' style="font-size:48px;margin-bottom:10px;"></i>
+              <p>You have not placed any orders yet.</p>
+              <a href="shop.html" class="btn" style="display:inline-block;margin-top:15px;">Shop Now</a>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = data.orders.map(order => {
+          const statusClass = 'status-' + order.order_status.replace(/\s+/g, '');
+          const itemsHtml = (order.items || []).filter(i => i.product_name).map(i => `
+            <div class="item-row">
+              <span>${i.product_name} (${i.color || 'Standard'} / ${i.size || 'M'}) × ${i.quantity}</span>
+              <strong>₦${Number(i.subtotal || (i.unit_price * i.quantity)).toLocaleString()}</strong>
+            </div>
+          `).join('');
+
+          const dateStr = new Date(order.created_at).toLocaleDateString('en-US', {
+            year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+          });
+
+          return `
+            <div class="order-card">
+              <div class="order-top">
+                <div>
+                  <span class="order-number">${order.order_number}</span>
+                  <span style="color:#888;font-size:13px;margin-left:10px;">${dateStr}</span>
+                </div>
+                <span class="badge-status ${statusClass}">${order.order_status}</span>
+              </div>
+              <div class="order-details-grid">
+                <div><strong>Total Amount:</strong> ₦${Number(order.total_amount).toLocaleString()}</div>
+                <div><strong>Payment:</strong> ${order.payment_status} (${order.payment_method})</div>
+                <div><strong>Delivery Address:</strong> ${order.delivery_address}, ${order.state}</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.02);padding:12px;border-radius:4px;margin-top:10px;">
+                <h4 style="margin:0 0 8px;font-size:13px;text-transform:uppercase;color:#888;">Items Ordered</h4>
+                ${itemsHtml}
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (err) {
+        document.getElementById('ordersContainer').innerHTML = `<p style="color:red;">Error loading orders: ${err.message}</p>`;
+      }
+    }
+
+    loadOrders();
+  </script>
+</body>
+</html>
