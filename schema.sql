@@ -11,10 +11,16 @@ CREATE TABLE IF NOT EXISTS users (
     password_hash VARCHAR(255) NOT NULL,
     full_name VARCHAR(255) NOT NULL,
     phone VARCHAR(50),
-    role VARCHAR(50) NOT NULL DEFAULT 'customer', -- 'customer' or 'admin'
+    role VARCHAR(50) NOT NULL DEFAULT 'customer',
     created_at TIMESTAMPTZ DEFAULT now(),
     updated_at TIMESTAMPTZ DEFAULT now()
 );
+
+-- Ensure missing columns exist if table was created in an older run
+ALTER TABLE users ADD COLUMN IF NOT EXISTS phone VARCHAR(50);
+ALTER TABLE users ADD COLUMN IF NOT EXISTS full_name VARCHAR(255);
+ALTER TABLE users ADD COLUMN IF NOT EXISTS role VARCHAR(50) DEFAULT 'customer';
+ALTER TABLE users ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ DEFAULT now();
 
 -- Collections
 CREATE TABLE IF NOT EXISTS collections (
@@ -59,6 +65,14 @@ CREATE TABLE IF NOT EXISTS orders (
     created_at TIMESTAMPTZ DEFAULT now(),
     updated_at TIMESTAMPTZ DEFAULT now()
 );
+
+-- Ensure missing order columns exist if created earlier
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS customer_phone VARCHAR(50);
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS order_status VARCHAR(50) DEFAULT 'Pending';
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_status VARCHAR(50) DEFAULT 'Payment Pending';
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS delivery_address TEXT;
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS state VARCHAR(100);
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_method VARCHAR(100) DEFAULT 'Bank Transfer / On Delivery';
 
 -- Order Items
 CREATE TABLE IF NOT EXISTS order_items (
@@ -109,14 +123,18 @@ SELECT 'ribbed-tank', 'Ribbed Muscle Tank', c.id, 35000.00,
 FROM collections c WHERE c.slug = 'tanks'
 ON CONFLICT (slug) DO NOTHING;
 
--- Seed Default Admin Account: admin@luxoral.com / Admin1234!
--- Password hash generated with standard SHA-256 with salt
+-- Seed / Update Default Admin Account: admin@luxoral.com / Admin1234!
+-- SHA-256 of 'Admin1234!' = 5ce41ada64f1e8ffb0acfaafa622b141438f3a5777785e7f0b830fb73e40d3d6
 INSERT INTO users (email, password_hash, full_name, phone, role)
 VALUES (
     'admin@luxoral.com',
-    '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', -- sha256 of 'Admin1234!'
+    '5ce41ada64f1e8ffb0acfaafa622b141438f3a5777785e7f0b830fb73e40d3d6',
     'Luxoral Store Admin',
     '+2348158121554',
     'admin'
 )
-ON CONFLICT (email) DO NOTHING;
+ON CONFLICT (email) DO UPDATE SET
+    password_hash = EXCLUDED.password_hash,
+    role = 'admin',
+    full_name = EXCLUDED.full_name,
+    phone = EXCLUDED.phone;
