@@ -79,8 +79,16 @@ export default async function handler(req, res) {
       const seqRows = await sql`SELECT nextval('order_number_seq') as num`;
       const orderNumber = `LX-${seqRows[0].num}`;
 
+      // Validate userId exists in users table to prevent stale token FK constraint error
+      let userId = null;
+      if (authUser && authUser.userId) {
+        const userExists = await sql`SELECT id FROM users WHERE id = ${authUser.userId}`;
+        if (userExists.length > 0) {
+          userId = authUser.userId;
+        }
+      }
+
       // Insert Order
-      const userId = authUser ? authUser.userId : null;
       const orderRows = await sql`
         INSERT INTO orders (
           order_number,
