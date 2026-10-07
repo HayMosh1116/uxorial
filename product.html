@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+
+        content="width=device-width, initial-scale=1.0">
+
+    <title>LUXORAL | Product</title>
+
+    <link
+
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+
+        rel="stylesheet">
+
+    <link
+
+        href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<!-- ================================
+
+        NAVBAR
+
+================================ -->
+
+<header>
+
+   <nav class="navbar">
+
+    <div class="logo">
+
+        LUXORAL
+
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+
+            <a href="index.html">Home</a>
+
+        </li>
+
+        <li>
+
+            <a href="shop.html">Shop</a>
+
+        </li>
+
+        <li>
+
+            <a href="about.html">About</a>
+
+        </li>
+
+    </ul>
+
+    <!-- MOBILE MENU BUTTON -->
+
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+
+        <i class='bx bx-menu' id="menuIcon"></i>
+
+    </button>
+
+    <!-- DARK MODE -->
+
+    <button
+
+        class="theme-toggle"
+
+        id="themeToggle"
+
+        aria-label="Toggle dark mode"
+
+    >
+
+        <i class='bx bx-moon'></i>
+
+    </button>
+
+    <!-- CART -->
+
+    <a href="cart.html" class="cart-nav">
+
+        <i class='bx bx-shopping-bag'></i>
+
+        <span id="cartBadge">0</span>
+
+    </a>
+
+</nav>
+
+<!-- MOBILE MENU OVERLAY -->
+
+<div class="menu-overlay"></div>
+
+</header>
+
+<!-- ================================
+
+        PRODUCT
+
+================================ -->
+
+<section class="product-page">
+
+    <!-- PRODUCT IMAGE -->
+
+    <div class="product-image">
+
+        <div class="product-image-wrapper">
+
+            <img
+
+                id="productImage"
+
+                src="images/black.jpeg"
+
+                alt="Luxury Roundneck">
+
+        </div>
+
+    </div>
+
+    <!-- PRODUCT INFORMATION -->
+
+    <div class="product-info">
+
+        <span class="product-category">
+
+            LUXORAL COLLECTION
+
+        </span>
+
+        <h1>
+
+            Luxury Roundneck
+
+        </h1>
+
+        <h2>
+
+            ₦15,000
+
+        </h2>
+
+        <p class="product-description">
+
+            Premium cotton roundneck designed
+
+            for comfort and confidence.
+
+            Perfect for casual outings and
+
+            everyday luxury.
+
+        </p>
+
+        <!-- SIZE -->
+
+        <div class="product-option">
+
+            <div class="option-heading">
+
+                <h3>
+
+                    Available Sizes
+
+                </h3>
+
+                <span>
+
+                    Select size
+
+                </span>
+
+            </div>
+
+            <div class="sizes">
+
+                <button
+
+                    class="size active">
+
+                    M
+
+                </button>
+
+                <button
+
+                    class="size">
+
+                    L
+
+                </button>
+
+                <button
+
+                    class="size">
+
+                    XL
+
+                </button>
+
+                <button
+
+                    class="size">
+
+                    2XL
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- COLORS -->
+
+        <div class="product-option">
+
+            <div class="option-heading">
+
+                <h3>
+
+                    Available Colors
+
+                </h3>
+
+                <span>
+
+                    Select color
+
+                </span>
+
+            </div>
+
+            <div class="colors">
+
+                <button
+
+                    class="color active"
+
+                    data-color="black"
+
+                    data-image="images/black.jpeg"
+
+                    style="background:#000;"
+
+                    aria-label="Black">
+
+                </button>
+
+                <button
+
+                    class="color"
+
+                    data-color="white"
+
+                    data-image="images/white.jpeg"
+
+                    style="background:#fff; border:2px solid #ccc;"
+
+                    aria-label="White">
+
+                </button>
+
+                <button
+
+                    class="color"
+
+                    data-color="blue"
+
+                    data-image="images/Blue.jpeg"
+
+                    style="background:#1f5eff;"
+
+                    aria-label="Blue">
+
+                </button>
+
+                <button
+
+                    class="color"
+
+                    data-color="cream"
+
+                    data-image="images/Cream.jpeg"
+
+                    style="background:#f5e6c8;"
+
+                    aria-label="Cream">
+
+                </button>
+
+                <button
+
+                    class="color"
+
+                    data-color="pink"
+
+                    data-image="images/pink.jpeg"
+
+                    style="background:#ff8fb8;"
+
+                    aria-label="Pink">
+
+                </button>
+
+                <button
+
+                    class="color"
+
+                    data-color="purple"
+
+                    data-image="images/purple.jpeg"
+
+                    style="background:#7b2cbf;"
+
+                    aria-label="Purple">
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- ADD TO CART -->
+
+        <button
+
+            class="btn product-add-btn"
+
+            id="addCart"
+
+            data-name="Luxury Roundneck"
+
+            data-price="15000">
+
+            <i class='bx bx-shopping-bag'></i>
+
+            Add To Cart
+
+        </button>
+
+        <!-- PRODUCT NOTE -->
+
+        <div class="product-note">
+
+            <i class='bx bx-check-circle'></i>
+
+            <span>
+
+                Premium quality • Comfortable fit • Everyday luxury
+
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================================
+
+        TOAST
+
+================================ -->
+
+<div
+
+    class="toast"
+
+    id="toast">
+
+    <i class='bx bx-check-circle'></i>
+
+    <span>
+
+        Added to Cart
+
+    </span>
+
+</div>
+
+<!-- ================================
+
+        JAVASCRIPT
+
+================================ -->
+
+<script src="script.js"></script>
+
+<script src="cart.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  
+  <meta charset="UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>LUXORAL | Checkout</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  
+</head>
+
+<body>
+  
+  <header>
+    
+    <nav class="navbar">
+
+    <div class="logo">
+
+        LUXORAL
+
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+
+            <a href="index.html">Home</a>
+
+        </li>
+
+        <li>
+
+            <a href="shop.html">Shop</a>
+
+        </li>
+
+        <li>
+
+            <a href="about.html">About</a>
+
+        </li>
+
+    </ul>
+
+    <!-- MOBILE MENU BUTTON -->
+
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+
+        <i class='bx bx-menu' id="menuIcon"></i>
+
+    </button>
+
+    <!-- DARK MODE -->
+
+    <button
+
+        class="theme-toggle"
+
+        id="themeToggle"
+
+        aria-label="Toggle dark mode"
+
+    >
+
+        <i class='bx bx-moon'></i>
+
+    </button>
+
+    <!-- CART -->
+
+    <a href="cart.html" class="cart-nav">
+
+        <i class='bx bx-shopping-bag'></i>
+
+        <span id="cartBadge">0</span>
+
+    </a>
+
+</nav>
+
+<!-- MOBILE MENU OVERLAY -->
+
+<div class="menu-overlay"></div>
+    
+  </header>
+  
+  <section class="checkout-page">
+    
+    <h1>Checkout</h1>
+    
+    <div class="checkout-grid">
+      
+      <div class="customer-info">
+        
+        <h2>Customer Details</h2>
+        
+        <input type="text" id="customerName" placeholder="Full Name">
+        
+        <input type="tel" id="customerPhone" placeholder="Phone Number">
+        
+        <input type="email" id="customerEmail" placeholder="Email (Optional)">
+        
+        <textarea id="customerAddress" placeholder="Delivery Address"></textarea>
+        
+        <select id="customerState">
+        
+          <option>Lagos</option>
+          
+          <option>Oyo</option>
+          
+          <option>Ogun</option>
+          
+          <option>Osun</option>
+          
+          <option>Abuja</option>
+          
+          <option>Kwara</option>
+          
+          <option>Ondo</option>
+          
+          <option>Ekiti</option>
+          
+          <option>Rivers</option>
+          
+          <option>Delta</option>
+          
+          <option>Edo</option>
+          
+          <option>Other</option>
+          
+        </select>
+        
+      </div>
+      
+      <div class="order-summary">
+  
+  <h2>Order Summary</h2>
+  
+  <div id="orderItems"></div>
+  
+  <hr style="margin:20px 0;">
+  
+  <h3>Total: <span id="summaryTotal">₦0</span></h3>
+  
+  <button class="btn" id="placeOrder">
+  
+    Place Order
+    
+  </button>
+  
+</div>
+      
+    </div>
+    
+  </section>
+  
+  <script src="script.js"></script>
+<script src="cart.js"></script>
+  
+</body>
+
+</html>

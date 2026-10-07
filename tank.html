@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LUXORAL | Tank Top</title>
+
+    <!-- GOOGLE FONTS -->
+
+    <link
+
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+
+        rel="stylesheet"
+
+    >
+
+    <!-- BOXICONS -->
+
+    <link
+
+        href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+
+        rel="stylesheet"
+
+    >
+
+    <!-- MAIN CSS -->
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<!--==================================================
+
+                    NAVBAR
+
+==================================================-->
+
+<header>
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            LUXORAL
+
+        </div>
+
+        <ul class="nav-links">
+
+            <li>
+
+                <a href="index.html">Home</a>
+
+            </li>
+
+            <li>
+
+                <a href="shop.html">Shop</a>
+
+            </li>
+
+            <li>
+
+                <a href="about.html">About</a>
+
+            </li>
+
+        </ul>
+
+        <!-- MOBILE MENU BUTTON -->
+
+        <button
+
+            class="menu-btn"
+
+            id="menuBtn"
+
+            aria-label="Open menu"
+
+        >
+
+            <i class='bx bx-menu' id="menuIcon"></i>
+
+        </button>
+
+        <!-- DARK MODE -->
+
+        <button
+
+            class="theme-toggle"
+
+            id="themeToggle"
+
+            aria-label="Toggle dark mode"
+
+        >
+
+            <i class='bx bx-moon'></i>
+
+        </button>
+
+        <!-- CART -->
+
+        <a href="cart.html" class="cart-nav">
+
+            <i class='bx bx-shopping-bag'></i>
+
+            <span id="cartBadge">0</span>
+
+        </a>
+
+    </nav>
+
+    <!-- MOBILE MENU OVERLAY -->
+
+    <div class="menu-overlay"></div>
+
+</header>
+
+<!--==================================================
+
+                PRODUCT SECTION
+
+==================================================-->
+
+<section class="product-page">
+
+    <!--==================================================
+
+                        PRODUCT IMAGE
+
+    ==================================================-->
+
+    <div class="product-image">
+
+        <div class="product-image-wrapper">
+
+            <img
+
+                id="productImage"
+
+                src="images/tankblack.jpg"
+
+                alt="Luxury Tank Top"
+
+            >
+
+        </div>
+
+    </div>
+
+    <!--==================================================
+
+                    PRODUCT INFORMATION
+
+    ==================================================-->
+
+    <div class="product-info">
+
+        <!-- CATEGORY -->
+
+        <span class="product-category">
+
+            LUXORAL COLLECTION
+
+        </span>
+
+        <!-- PRODUCT NAME -->
+
+        <h1>
+
+            Luxury Tank Top
+
+        </h1>
+
+        <!-- PRICE -->
+
+        <h2>
+
+            ₦12,000
+
+        </h2>
+
+        <!-- DESCRIPTION -->
+
+        <p class="product-description">
+
+            Premium tank top designed for comfort,
+
+            confidence and effortless style.
+
+            Perfect for casual outings, relaxed days
+
+            and everyday luxury.
+
+        </p>
+
+        <!--==================================================
+
+                        SIZE
+
+        ==================================================-->
+
+        <div class="product-option">
+
+            <div class="option-heading">
+
+                <h3>
+
+                    Available Sizes
+
+                </h3>
+
+                <span>
+
+                    Select your size
+
+                </span>
+
+            </div>
+
+            <div class="sizes">
+
+                <button class="size active">
+
+                    M
+
+                </button>
+
+                <button class="size">
+
+                    L
+
+                </button>
+
+                <button class="size">
+
+                    XL
+
+                </button>
+
+                <button class="size">
+
+                    2XL
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <!--==================================================
+
+                        COLORS
+
+        ==================================================-->
+
+        <div class="product-option">
+
+            <div class="option-heading">
+
+                <h3>
+
+                    Available Colors
+
+                </h3>
+
+                <span>
+
+                    Choose a color
+
+                </span>
+
+            </div>
+
+            <div class="colors">
+
+                <!-- BLACK -->
+
+                <button
+
+                    class="color active"
+
+                    data-color="Black"
+
+                    data-image="images/tankblack.jpg"
+
+                    style="background:#000;"
+
+                    aria-label="Black"
+
+                ></button>
+
+                <!-- WHITE -->
+
+                <button
+
+                    class="color"
+
+                    data-color="White"
+
+                    data-image="images/tankwhite.jpg"
+
+                    style="background:#fff;"
+
+                    aria-label="White"
+
+                ></button>
+
+                <!-- BLUE -->
+
+                <button
+
+                    class="color"
+
+                    data-color="Blue"
+
+                    data-image="images/tankblue.jpg"
+
+                    style="background:#5DC9FA;"
+
+                    aria-label="Blue"
+
+                ></button>
+
+                <!-- ORANGE -->
+
+                <button
+
+                    class="color"
+
+                    data-color="Orange"
+
+                    data-image="images/tankorange.jpg"
+
+                    style="background:#f97316;"
+
+                    aria-label="Orange"
+
+                ></button>
+
+            </div>
+
+        </div>
+
+        <!--==================================================
+
+                    ADD TO CART
+
+        ==================================================-->
+
+        <button
+
+            class="product-add-btn"
+
+            id="addCart"
+
+            data-name="Luxury Tank Top"
+
+            data-price="12000"
+
+        >
+
+            <i class='bx bx-shopping-bag'></i>
+
+            Add To Cart
+
+        </button>
+
+        <!--==================================================
+
+                    PRODUCT NOTE
+
+        ==================================================-->
+
+        <div class="product-note">
+
+            <i class='bx bx-check-circle'></i>
+
+            <span>
+
+                Premium quality • Multiple colors • Multiple sizes
+
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!--==================================================
+
+                    TOAST
+
+==================================================-->
+
+<div class="toast" id="toast">
+
+    <i class='bx bx-check-circle'></i>
+
+    <span>
+
+        Added to Cart
+
+    </span>
+
+</div>
+
+<!--==================================================
+
+                    JAVASCRIPT
+
+==================================================-->
+
+<script src="script.js"></script>
+
+<script src="cart.js"></script>
+
+</body>
+
+</html>

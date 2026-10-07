@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  
+  <meta charset="UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>LUXORAL | Shop</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  
+</head>
+
+<body>
+  
+  <header>
+    
+  <nav class="navbar">
+
+    <div class="logo">
+
+        LUXORAL
+
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+
+            <a href="index.html">Home</a>
+
+        </li>
+
+        <li>
+
+            <a href="shop.html">Shop</a>
+
+        </li>
+
+        <li>
+
+            <a href="about.html">About</a>
+
+        </li>
+
+    </ul>
+
+    <!-- MOBILE MENU BUTTON -->
+
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+
+        <i class='bx bx-menu' id="menuIcon"></i>
+
+    </button>
+
+    <!-- DARK MODE -->
+
+    <button
+
+        class="theme-toggle"
+
+        id="themeToggle"
+
+        aria-label="Toggle dark mode"
+
+    >
+
+        <i class='bx bx-moon'></i>
+
+    </button>
+
+    <!-- CART -->
+
+    <a href="cart.html" class="cart-nav">
+
+        <i class='bx bx-shopping-bag'></i>
+
+        <span id="cartBadge">0</span>
+
+    </a>
+
+</nav>
+
+<!-- MOBILE MENU OVERLAY -->
+
+<div class="menu-overlay"></div>
+    
+  </header>
+  
+  <section class="shop-hero">
+    
+    <h1>Shop Collection</h1>
+    
+    <p>
+      
+      Discover premium pieces designed for confidence.
+      
+    </p>
+    
+  </section>
+  
+  <section class="shop-products">
+    
+    <div class="search-box">
+
+  <i class='bx bx-search'></i>
+
+  <input
+
+    type="text"
+
+    id="searchInput"
+
+    placeholder="Search products...">
+
+</div>
+    
+    <div class="products">
+      
+      <div class="card reveal">
+        
+        <img src="images/black.jpeg">
+        
+        <h3>Roundneck</h3>
+        
+        <p>₦15,000</p>
+        
+        <a href="product.html" class="btn">
+
+    View Product
+
+</a>
+
+<button
+
+class="btn add-cart"
+
+data-name="Luxury Roundneck"
+
+data-price="15000"
+
+data-image="images/black.jpeg"
+
+data-size="M"
+
+data-color="Black">
+
+Add to Cart
+
+</button>
+        
+      </div>
+      
+      <div class="card reveal">
+        
+        <img src="images/zipwhite.png">
+        
+        <h3>Zip-Up Shirt</h3>
+        
+        <p>₦14,000</p>
+        
+       <a href="zip-up.html" class="btn">
+
+    View Product
+
+</a>
+
+<button
+
+class="btn add-cart"
+
+data-name="Luxury Zip-up Shirt"
+
+data-price="14000"
+
+data-image="images/zipwhite.png"
+
+data-size="M"
+
+data-color="White">
+
+Add to Cart
+
+</button>
+        
+      </div>
+      
+       <div class="products">
+      
+      <div class="card reveal">
+        
+        <img src="images/tankblack.jpg">
+        
+        <h3>Tanktop</h3>
+        
+        <p>₦12,000</p>
+        
+        <a href="tank.html" class="btn">
+
+    View Product
+
+</a>
+
+<button
+
+class="btn add-cart"
+
+data-name="Luxury Tanktop"
+
+data-price="12000"
+
+data-image="images/tankblack.jpg"
+
+data-size="M"
+
+data-color="Black">
+
+Add to Cart
+
+</button>
+        
+      </div>
+      
+    </div>
+    
+  </section>
+  
+  <script src="script.js"></script>
+  
+</body>
+
+</html>

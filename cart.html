@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  
+  <meta charset="UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>LUXORAL | Shopping Cart</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  
+</head>
+
+<body>
+  
+  <header>
+    
+    <nav class="navbar">
+
+    <div class="logo">
+
+        LUXORAL
+
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+
+            <a href="index.html">Home</a>
+
+        </li>
+
+        <li>
+
+            <a href="shop.html">Shop</a>
+
+        </li>
+
+        <li>
+
+            <a href="about.html">About</a>
+
+        </li>
+
+    </ul>
+
+    <!-- MOBILE MENU BUTTON -->
+
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+
+        <i class='bx bx-menu' id="menuIcon"></i>
+
+    </button>
+
+    <!-- DARK MODE -->
+
+    <button
+
+        class="theme-toggle"
+
+        id="themeToggle"
+
+        aria-label="Toggle dark mode"
+
+    >
+
+        <i class='bx bx-moon'></i>
+
+    </button>
+
+    <!-- CART -->
+
+    <a href="cart.html" class="cart-nav">
+
+        <i class='bx bx-shopping-bag'></i>
+
+        <span id="cartBadge">0</span>
+
+    </a>
+
+</nav>
+
+<!-- MOBILE MENU OVERLAY -->
+
+<div class="menu-overlay"></div>
+    
+  </header>
+  
+  <section class="cart-page">
+    
+    <div class="cart-header">
+  
+  <h1>Shopping Cart</h1>
+    
+  </div>
+  
+</div>
+    
+    <div id="cartItems"></div>
+    
+    <div class="cart-total">
+      
+      <h2>Total</h2>
+      
+      <h1 id="totalPrice"></h1>
+      
+      <a href="checkout.html" class="btn">
+      
+        Proceed to Checkout
+        
+      </a>
+      
+    </div>
+    
+  </section>
+  
+  <script src="script.js"></script>
+  <script src="cart.js"></script>
+  
+</body>
+
+</html>
