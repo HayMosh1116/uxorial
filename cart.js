@@ -482,6 +482,8 @@ if (placeOrderBtn) {
       const headers = { "Content-Type": "application/json" };
       if (token) headers["Authorization"] = `Bearer ${token}`;
 
+      const totalAmount = cart.reduce((sum, item) => sum + (Number(item.price) * Number(item.quantity)), 0);
+
       const res = await fetch("/api/orders", {
         method: "POST",
         headers,
@@ -493,7 +495,7 @@ if (placeOrderBtn) {
           state: customerState,
           paymentMethod: "Bank Transfer / Pay On Delivery",
           items: cart,
-          totalAmount: total
+          totalAmount
         })
       });
 
