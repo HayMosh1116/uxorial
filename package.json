@@ -1,0 +1,11 @@
+{
+  "name": "uxorial",
+  "version": "1.0.0",
+  "description": "LUXORAL store - static frontend on Vercel with Neon PostgreSQL backend",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.9.5"
+  }
+}
